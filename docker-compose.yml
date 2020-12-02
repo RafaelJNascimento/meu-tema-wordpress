@@ -1,0 +1,31 @@
+version: "3.1"
+
+services:
+  #php + apache
+  server:
+    build: .
+    depends_on:
+    - db
+    restart: unless-stopped
+    ports:
+    - "8001:80"
+    volumes:
+    - ./:/var/www/html/
+    networks:
+    - wpsite-network
+  # Database
+  db:
+    image: mysql:8.0
+    env_file: .env
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+    - db_data:/var/lib/mysql
+    networks:
+    - wpsite-network
+
+networks:
+  wpsite-network:
+    driver: bridge
+volumes:
+  db_data:
