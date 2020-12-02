@@ -15,4 +15,12 @@ if(!function_exists('_wp_render_title_tag')) {
   add_action('wp_head', 'bs4wp_render_title');
 }
 
+// Registra o Custom Navigation Walker
+require_once get_template_directory() . '/class-wp-bootstrap-navwalker.php';
+
+// Registrar os menus
+register_nav_menus( array(
+  `principal` => __('Menu Pricipal', 'bs4wp')
+));
+
 ?>
